@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FB63C101626D024000DB1BF /* CalChooseCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB63C0F1626D024000DB1BF /* CalChooseCalendarViewController.m */; };
+		1FB63C141626E5E8000DB1BF /* CalCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB63C131626E5E7000DB1BF /* CalCalendarCell.m */; };
+		1FB63C1716275F1B000DB1BF /* CalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB63C1616275F1B000DB1BF /* CalModel.m */; };
 		1FD23484162473B000405426 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD23483162473B000405426 /* UIKit.framework */; };
 		1FD23486162473B000405426 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD23485162473B000405426 /* Foundation.framework */; };
 		1FD23488162473B000405426 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD23487162473B000405426 /* CoreGraphics.framework */; };
@@ -19,9 +22,19 @@
 		1FD2349D162473B000405426 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD2349B162473B000405426 /* MainStoryboard.storyboard */; };
 		1FD234A0162473B000405426 /* CalMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2349F162473B000405426 /* CalMasterViewController.m */; };
 		1FD234A3162473B000405426 /* CalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD234A2162473B000405426 /* CalDetailViewController.m */; };
+		1FD234B11624743D00405426 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD234B01624743D00405426 /* EventKit.framework */; };
+		1FD234B31624BCEA00405426 /* up.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FD234B21624BCEA00405426 /* up.png */; };
+		1FD234B51624BCF900405426 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FD234B41624BCF900405426 /* background.png */; };
+		1FD234B81624BEB300405426 /* CalDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD234B71624BEB300405426 /* CalDetailCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1FB63C0E1626D024000DB1BF /* CalChooseCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalChooseCalendarViewController.h; sourceTree = "<group>"; };
+		1FB63C0F1626D024000DB1BF /* CalChooseCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalChooseCalendarViewController.m; sourceTree = "<group>"; };
+		1FB63C121626E5E7000DB1BF /* CalCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalCalendarCell.h; sourceTree = "<group>"; };
+		1FB63C131626E5E7000DB1BF /* CalCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalCalendarCell.m; sourceTree = "<group>"; };
+		1FB63C1516275F1B000DB1BF /* CalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalModel.h; sourceTree = "<group>"; };
+		1FB63C1616275F1B000DB1BF /* CalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalModel.m; sourceTree = "<group>"; };
 		1FD2347F162473B000405426 /* CalSpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalSpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FD23483162473B000405426 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1FD23485162473B000405426 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,6 +53,11 @@
 		1FD2349F162473B000405426 /* CalMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalMasterViewController.m; sourceTree = "<group>"; };
 		1FD234A1162473B000405426 /* CalDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalDetailViewController.h; sourceTree = "<group>"; };
 		1FD234A2162473B000405426 /* CalDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalDetailViewController.m; sourceTree = "<group>"; };
+		1FD234B01624743D00405426 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		1FD234B21624BCEA00405426 /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
+		1FD234B41624BCF900405426 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		1FD234B61624BEB300405426 /* CalDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalDetailCell.h; sourceTree = "<group>"; };
+		1FD234B71624BEB300405426 /* CalDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalDetailCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FD234B11624743D00405426 /* EventKit.framework in Frameworks */,
 				1FD23484162473B000405426 /* UIKit.framework in Frameworks */,
 				1FD23486162473B000405426 /* Foundation.framework in Frameworks */,
 				1FD23488162473B000405426 /* CoreGraphics.framework in Frameworks */,
@@ -59,6 +78,7 @@
 		1FD23474162473B000405426 = {
 			isa = PBXGroup;
 			children = (
+				1FD234B01624743D00405426 /* EventKit.framework */,
 				1FD23489162473B000405426 /* CalSpy */,
 				1FD23482162473B000405426 /* Frameworks */,
 				1FD23480162473B000405426 /* Products */,
@@ -86,13 +106,21 @@
 		1FD23489162473B000405426 /* CalSpy */ = {
 			isa = PBXGroup;
 			children = (
+				1FB63C1516275F1B000DB1BF /* CalModel.h */,
+				1FB63C1616275F1B000DB1BF /* CalModel.m */,
 				1FD23492162473B000405426 /* CalAppDelegate.h */,
 				1FD23493162473B000405426 /* CalAppDelegate.m */,
 				1FD2349B162473B000405426 /* MainStoryboard.storyboard */,
+				1FB63C121626E5E7000DB1BF /* CalCalendarCell.h */,
+				1FB63C131626E5E7000DB1BF /* CalCalendarCell.m */,
 				1FD2349E162473B000405426 /* CalMasterViewController.h */,
 				1FD2349F162473B000405426 /* CalMasterViewController.m */,
 				1FD234A1162473B000405426 /* CalDetailViewController.h */,
 				1FD234A2162473B000405426 /* CalDetailViewController.m */,
+				1FB63C0E1626D024000DB1BF /* CalChooseCalendarViewController.h */,
+				1FB63C0F1626D024000DB1BF /* CalChooseCalendarViewController.m */,
+				1FD234B61624BEB300405426 /* CalDetailCell.h */,
+				1FD234B71624BEB300405426 /* CalDetailCell.m */,
 				1FD2348A162473B000405426 /* Supporting Files */,
 			);
 			path = CalSpy;
@@ -101,6 +129,8 @@
 		1FD2348A162473B000405426 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1FD234B41624BCF900405426 /* background.png */,
+				1FD234B21624BCEA00405426 /* up.png */,
 				1FD2348B162473B000405426 /* CalSpy-Info.plist */,
 				1FD2348C162473B000405426 /* InfoPlist.strings */,
 				1FD2348F162473B000405426 /* main.m */,
@@ -169,6 +199,8 @@
 				1FD23498162473B000405426 /* Default@2x.png in Resources */,
 				1FD2349A162473B000405426 /* Default-568h@2x.png in Resources */,
 				1FD2349D162473B000405426 /* MainStoryboard.storyboard in Resources */,
+				1FD234B31624BCEA00405426 /* up.png in Resources */,
+				1FD234B51624BCF900405426 /* background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +215,10 @@
 				1FD23494162473B000405426 /* CalAppDelegate.m in Sources */,
 				1FD234A0162473B000405426 /* CalMasterViewController.m in Sources */,
 				1FD234A3162473B000405426 /* CalDetailViewController.m in Sources */,
+				1FD234B81624BEB300405426 /* CalDetailCell.m in Sources */,
+				1FB63C101626D024000DB1BF /* CalChooseCalendarViewController.m in Sources */,
+				1FB63C141626E5E8000DB1BF /* CalCalendarCell.m in Sources */,
+				1FB63C1716275F1B000DB1BF /* CalModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +334,7 @@
 				1FD234A8162473B000405426 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

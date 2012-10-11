@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CalDetailCell.h"
+#import <EventKit/EventKit.h>
 
-@interface CalDetailViewController : UIViewController
+@interface CalDetailViewController : UITableViewController
 
-@property (strong, nonatomic) id detailItem;
+//@property (strong, nonatomic) NSArray *detailItem;
+@property (strong, nonatomic) NSArray *sections;
+- (IBAction)sendData:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @end

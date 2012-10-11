@@ -11,11 +11,23 @@
 #import "CalDetailViewController.h"
 
 @interface CalMasterViewController () {
-    NSMutableArray *_objects;
+    NSDate *dateBegin;
+    NSDate *dateEnd;
+    NSDateFormatter *formatter;
 }
 @end
 
 @implementation CalMasterViewController
+
+@synthesize model = _model;
+@synthesize selectedCalendarsIndexPaths = _selectedCalendarsIndexPaths;
+
+- (CalModel *)model{
+    if(!_model){
+        _model = [[CalModel alloc]init];
+    }
+    return _model;
+}
 
 - (void)awakeFromNib
 {
@@ -25,11 +37,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    if (formatter == nil) {
+        formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+    }
+    
+    NSCalendar* myCalendar = [NSCalendar currentCalendar];
+    NSDateComponents* components = [myCalendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:[NSDate date]];
+    [components setHour: 0];
+    [components setMinute: 0];
+    [components setSecond: 0];
+    dateBegin = [myCalendar dateFromComponents:components];
+    self.fromLabel.text = [formatter stringFromDate:dateBegin];
+    dateEnd = [dateBegin dateByAddingTimeInterval: +86400.0];
+    self.toLabel.text = [formatter stringFromDate:dateEnd];
 }
 
 - (void)didReceiveMemoryWarning
@@ -38,76 +59,74 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-#pragma mark - Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _objects.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
-    return cell;
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+    if (indexPath.row != 2) {
+        self.datePicker.hidden = NO;
+        self.datePicker.tag = indexPath.row;
+        [self setBeginEndDateForDatePicker];
+        [self.tableView addSubview:self.datePicker];
+    }else{
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    
+    
+    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)setBeginEndDateForDatePicker
+{
+    if(self.datePicker.tag == 0 && dateBegin){
+        self.datePicker.date = dateBegin;
+    }else if(dateEnd){
+        self.datePicker.date = dateEnd;
     }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)setBeginEndDateFromDatePicker
 {
+    if(self.datePicker.tag == 0){
+        dateBegin = self.datePicker.date;
+        self.fromLabel.text = [formatter stringFromDate:dateBegin];
+    }else{
+        dateEnd = self.datePicker.date;
+        self.toLabel.text = [formatter stringFromDate:dateEnd];
+    }
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (IBAction)datePickerValueChange:(id)sender {
+    [self setBeginEndDateFromDatePicker];
 }
-*/
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+    self.datePicker.hidden = YES;
+    if ([[segue identifier] isEqualToString:@"showEventsList"]) {
+        NSArray *listEvents = [self.model retrieveEventsFrom:dateBegin To:dateEnd inCalendars:self.selectedCalendars];
+        NSArray *sections = [self.model generateSectionsByIteratingEventsArray:listEvents];
+        [[segue destinationViewController] setSections:sections];
+    }else if([[segue identifier] isEqualToString:@"chooseCalendars"]){
+        CalChooseCalendarViewController *chooseCalController = (CalChooseCalendarViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
+        chooseCalController.calsList = [self.model retrieveAllCalendars];
+        chooseCalController.calsSelected = self.selectedCalendarsIndexPaths;
+        chooseCalController.delegate = self;
     }
+}
+
+- (void)addChoosingCalendarViewControllerDidFinished:(CalChooseCalendarViewController *)controller
+{
+    self.calendars.text = [controller calsSelectedToString];
+    self.selectedCalendarsIndexPaths = controller.tableView.indexPathsForSelectedRows;
+    self.selectedCalendars = [controller calsSelectedData];
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 @end
