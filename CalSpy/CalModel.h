@@ -13,5 +13,6 @@
 - (NSArray*)retrieveEventsFrom:(NSDate*)dateBegin To:(NSDate*)dateEnd inCalendars:(NSArray *)calendars;
 - (NSArray*)generateSectionsByIteratingEventsArray: (NSArray*)events;
 - (NSArray*)retrieveAllCalendars;
+- (void)sendEvents:(NSArray *)events WithCallback:(void (^)(void))callback inContext:(id)context;
 
 @end

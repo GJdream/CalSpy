@@ -17,6 +17,8 @@
 
 @implementation CalDetailViewController
 @synthesize sections = _sections;
+@synthesize events = _events;
+@synthesize model = _model;
 
 #pragma mark - Managing the detail item
 
@@ -27,9 +29,17 @@
     }
 }*/
 
+- (CalModel *)model{
+    if(!_model){
+        _model = [[CalModel alloc]init];
+    }
+    return _model;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //return 1;
+    //NSLog(@"sections %u",[self.sections count]);
     return [self.sections count];
 }
 
@@ -41,12 +51,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //return [self.detailItem count];
+    
+    //NSLog(@"rows %u",[(NSNumber *)[(NSDictionary *)[self.sections objectAtIndex:section] objectForKey:@"rowsCount"] integerValue]);
     return [(NSNumber *)[(NSDictionary *)[self.sections objectAtIndex:section] objectForKey:@"rowsCount"] integerValue];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EKEvent *event = [(NSArray *)[(NSDictionary *)[self.sections objectAtIndex:indexPath.section] objectForKey:@"rows"]objectAtIndex:indexPath.row];
+    NSDictionary *dict = [self.sections objectAtIndex:indexPath.section];
+    //NSLog(@"%@",dict);
+    NSArray *rows = [dict objectForKey:@"rows"];
+    EKEvent *event = [rows objectAtIndex:indexPath.row];
+    //NSLog(@"%@",event);
     //EKEvent *event = [self.detailItem objectAtIndex:indexPath.row];
     
     CalDetailCell *cell;
@@ -113,5 +129,16 @@
 }
 
 - (IBAction)sendData:(id)sender {
+    UIActionSheet *bottomBar = [[UIActionSheet alloc]initWithTitle:@"Sending data to server..." delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    [bottomBar showInView:self.tableView];
+    [self.model sendEvents: self.events WithCallback:^{
+        [self performSelector:@selector(hideBottomBar:) withObject:bottomBar afterDelay:1.2];
+    } inContext:self];
+}
+
+
+-(void)hideBottomBar:(UIActionSheet *)theBottomBar {
+    theBottomBar.title = @"data sent!";
+    [theBottomBar dismissWithClickedButtonIndex:0 animated:YES];
 }
 @end

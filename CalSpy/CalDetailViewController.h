@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CalDetailCell.h"
+#import "CalModel.h"
 #import <EventKit/EventKit.h>
 
 @interface CalDetailViewController : UITableViewController
 
 //@property (strong, nonatomic) NSArray *detailItem;
 @property (strong, nonatomic) NSArray *sections;
+@property (nonatomic) CalModel *model;
+@property (strong, nonatomic) NSArray *events;
 - (IBAction)sendData:(id)sender;
+
 
 @end

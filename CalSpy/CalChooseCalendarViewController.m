@@ -19,8 +19,10 @@
 
 - (void)setCalsSelected:(NSArray *)calsSelected
 {
+    
+    NSLog(@"ok %@", calsSelected);
     UITableViewCell *cell;
-    for(NSIndexPath *index in self.calsSelected){
+    for(NSIndexPath *index in calsSelected){
         [self.tableView selectRowAtIndexPath:index animated:NO scrollPosition:UITableViewScrollPositionNone];
         cell = [self.tableView cellForRowAtIndexPath:index];
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -30,13 +32,18 @@
 - (NSString *)calsSelectedToString
 {
     NSArray *selectedId = [self.tableView indexPathsForSelectedRows];
-    NSMutableString *toReturn = [[NSMutableString alloc]init];
-    EKCalendar *cal;
-    for(NSIndexPath *selected in selectedId){
-        cal = [self.calsList objectAtIndex:selected.row];
-        [toReturn appendFormat:@"%@,",cal.title];
+    if([selectedId count] == [self.tableView numberOfRowsInSection:0] || [selectedId count] == 0){
+        return @"All";
+    }else{
+        NSMutableString *toReturn = [[NSMutableString alloc]init];
+        EKCalendar *cal;
+        for(NSIndexPath *selected in selectedId){
+            cal = [self.calsList objectAtIndex:selected.row];
+            [toReturn appendFormat:@"%@,",cal.title];
+        }
+        return toReturn;
     }
-    return toReturn;
+    
 }
 
 - (NSArray *)calsSelectedData

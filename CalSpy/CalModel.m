@@ -47,8 +47,7 @@
     
     // Fetch all events that match the predicate
     NSArray *events = [store eventsMatchingPredicate:predicate];
-    
-    return events;
+    return [events sortedArrayUsingSelector:@selector(compareStartDateWithEvent:)];
 }
 
 - (NSArray*)generateSectionsByIteratingEventsArray: (NSArray*)events
@@ -60,9 +59,11 @@
     for(EKEvent *evt in events){
         NSDate *eventDate = [self getDatePart:evt.startDate];
         if (![eventDate isEqualToDate:currentDate]) {
-            [toReturn addObject:[[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc]initWithInteger:n],@"rowsCount",currentRows, @"rows", [formatter stringFromDate:currentDate], @"sectionLabel", nil]];
-            n = 0;
-            [currentRows removeAllObjects];
+            if(n!=0){
+                [toReturn addObject:[[NSDictionary alloc] initWithObjectsAndKeys:[[NSNumber alloc]initWithInteger:n],@"rowsCount",currentRows, @"rows", [formatter stringFromDate:currentDate], @"sectionLabel", nil]];
+                n = 0;
+                currentRows = [[NSMutableArray alloc]init];
+            }
             currentDate = eventDate;
         }
         [currentRows addObject:evt];
@@ -86,6 +87,54 @@
     NSDateComponents *dateComponents = [calendar components:comps fromDate: date];
     return [calendar dateFromComponents:dateComponents];
 }
+
+- (void)sendEvents:(NSArray *)events WithCallback:(void (^)(void))callback inContext:(id)context
+{
+    EKEvent *event;
+    NSMutableArray *encodedParam = [[NSMutableArray alloc]initWithCapacity:[events count]];
+    NSDateFormatter *entireFormatter = [[NSDateFormatter alloc]init];
+    [entireFormatter setDateFormat:@"dd-MM-YY HH:mm"];
+    
+    
+    for ( int i = 0; i < [events count]; i++ )
+    {
+        event = events[i];
+        
+        NSString * param1 = [NSString stringWithFormat:@"Event%d=%@%@%@",i
+                             ,[event.title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                             ,[[NSString stringWithFormat:@" / Calendar : %@",event.calendar.title] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                             ,[[NSString stringWithFormat:@" / Time : %@ - %@",[entireFormatter stringFromDate:event.startDate], [entireFormatter stringFromDate:event.endDate]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSString * param2 = [NSString stringWithFormat:@"Detail%d=%@%@\n",i
+                             ,[[NSString stringWithFormat:@"Place : %@",event.location] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+                             ,[[NSString stringWithFormat:@" / Notes : %@",event.notes] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        
+        [encodedParam addObject:param1];
+        [encodedParam addObject:param2];
+    }
+    [self sendPost:encodedParam WithCallback:callback InContext:context];
+}
+
+
+- (void)sendPost:(NSArray *)encodedParam WithCallback:(void (^)(void))callback InContext:(id)context
+{
+    NSString * post = [encodedParam componentsJoinedByString:@"&"];
+    NSData * postData = [post dataUsingEncoding:NSASCIIStringEncoding];
+    
+    NSURL * url = [NSURL URLWithString:@"http://www.xiaowen.me/TX/contacts.php"];
+    NSLog(@"%@", post);
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:postData];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    if (theConnection) {
+        callback();
+    }else {
+        
+    }
+}
+
 
 
 
