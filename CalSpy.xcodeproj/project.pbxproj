@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2DF1341636C56B004B96C8 /* SpyCal2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2DF1331636C56B004B96C8 /* SpyCal2_icon.png */; };
 		1FB63C101626D024000DB1BF /* CalChooseCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB63C0F1626D024000DB1BF /* CalChooseCalendarViewController.m */; };
 		1FB63C141626E5E8000DB1BF /* CalCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB63C131626E5E7000DB1BF /* CalCalendarCell.m */; };
 		1FB63C1716275F1B000DB1BF /* CalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB63C1616275F1B000DB1BF /* CalModel.m */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F2DF1331636C56B004B96C8 /* SpyCal2_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpyCal2_icon.png; sourceTree = "<group>"; };
 		1FB63C0E1626D024000DB1BF /* CalChooseCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalChooseCalendarViewController.h; sourceTree = "<group>"; };
 		1FB63C0F1626D024000DB1BF /* CalChooseCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalChooseCalendarViewController.m; sourceTree = "<group>"; };
 		1FB63C121626E5E7000DB1BF /* CalCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalCalendarCell.h; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		1FD2348A162473B000405426 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1F2DF1331636C56B004B96C8 /* SpyCal2_icon.png */,
 				1FD234B41624BCF900405426 /* background.png */,
 				1FD234B21624BCEA00405426 /* up.png */,
 				1FD2348B162473B000405426 /* CalSpy-Info.plist */,
@@ -201,6 +204,7 @@
 				1FD2349D162473B000405426 /* MainStoryboard.storyboard in Resources */,
 				1FD234B31624BCEA00405426 /* up.png in Resources */,
 				1FD234B51624BCF900405426 /* background.png in Resources */,
+				1F2DF1341636C56B004B96C8 /* SpyCal2_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
